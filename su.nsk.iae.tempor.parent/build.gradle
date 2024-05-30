@@ -1,0 +1,40 @@
+buildscript {
+	repositories {
+		mavenCentral()
+		gradlePluginPortal()
+	}
+	dependencies {
+		classpath 'org.xtext:xtext-gradle-plugin:4.0.0'
+		classpath("gradle.plugin.com.github.johnrengelman:shadow:7.1.2")
+	}
+}
+
+apply plugin: 'com.github.johnrengelman.shadow'
+apply plugin: 'java'
+
+subprojects {
+	ext.xtextVersion = '2.30.0'
+	repositories {
+		mavenCentral()
+	}
+
+	apply plugin: 'java-library'
+	dependencies {
+		api platform("org.eclipse.xtext:xtext-dev-bom:${xtextVersion}")
+	}
+
+	apply plugin: 'org.xtext.xtend'
+	apply from: "${rootDir}/gradle/source-layout.gradle"
+	apply plugin: 'eclipse'
+	apply plugin: 'com.github.johnrengelman.shadow'
+
+	group = 'su.nsk.iae.tempor'
+	version = '1.0.0-SNAPSHOT'
+
+	sourceCompatibility = '11'
+	targetCompatibility = '11'
+
+	configurations.all {
+		exclude group: 'asm'
+	}
+}

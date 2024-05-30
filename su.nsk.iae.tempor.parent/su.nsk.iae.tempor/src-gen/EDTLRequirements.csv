@@ -1,0 +1,2 @@
+, Trigger, Invariant, Release, Reaction, Delay, Final
+1, (H&&D), (D), False, True, True, True

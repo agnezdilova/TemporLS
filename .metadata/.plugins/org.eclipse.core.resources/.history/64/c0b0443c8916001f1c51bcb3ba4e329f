@@ -1,0 +1,20 @@
+VAR_INPUT
+H : INT;
+D : INT;
+END_VAR
+
+VAR_OUTPUT
+OUT : INT;
+END_VAR
+
+SENTENCE s_1
+"hands are present" = H AND D
+END_SENTENCE
+
+SENTENCE s_2
+"dryer is on" = D
+END_SENTENCE
+
+REQUIREMENT r_1
+After "hands are present", "dryer is on".
+END_REQUIREMENT 

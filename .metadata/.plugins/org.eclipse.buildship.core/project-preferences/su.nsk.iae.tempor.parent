@@ -1,0 +1,12 @@
+#
+#Mon May 27 16:00:22 NOVT 2024
+derivedResources=.gradle;build;su.nsk.iae.tempor/build;su.nsk.iae.tempor.ide/build
+linkedResources=
+classpath=<?xml version\="1.0" encoding\="UTF-8"?>\n<classpath>\n</classpath>\n
+managedNatures=
+buildDir=build
+managedBuilders=<?xml version\="1.0" encoding\="UTF-8" standalone\="no"?><commands/>
+buildScriptPath=build.gradle
+subprojectPaths=su.nsk.iae.tempor;su.nsk.iae.tempor.ide
+hasAutoBuildTasks=false
+gradleVersion=7.6.1

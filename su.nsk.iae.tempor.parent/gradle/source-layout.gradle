@@ -1,0 +1,31 @@
+sourceSets {
+	main {
+		java.srcDir 'src/main/xtext-gen'
+		resources.srcDir 'src/main/xtext-gen'
+		xtend.outputDir = 'src/main/xtend-gen'
+	}
+	test {
+		java.srcDir 'src/test/xtext-gen'
+		resources.srcDir 'src/test/xtext-gen'
+		xtend.outputDir = 'src/test/xtend-gen'
+	}
+}
+
+sourceSets.all {
+	resources.exclude '**/*.g', '**/*.mwe2', '**/*.xtend', '**/*._trace'
+}
+
+jar {
+	from('model') {
+		into('model')
+	}
+	manifest {
+		attributes 'Bundle-SymbolicName': project.name
+	}
+}
+
+plugins.withId('war') {
+	war {
+		webAppDirectory = file("WebRoot")
+	}
+}
