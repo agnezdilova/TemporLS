@@ -1,0 +1,2 @@
+#, Name,Trigger, Invariant, Release, Reaction, Delay, Final
+1, r_1, (D&&/(H)), (D), (H), (D), True, (TAU(1s))

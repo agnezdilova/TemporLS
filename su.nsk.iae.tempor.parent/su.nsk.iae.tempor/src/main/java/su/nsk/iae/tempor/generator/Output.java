@@ -7,16 +7,16 @@ public class Output {
 	
 	public Output() {
 		EDTLcsv = new StringBuilder();
-		EDTLcsv.append(", Trigger, Invariant, Release, Reaction, Delay, Final\n");
+		EDTLcsv.append("#, Name,Trigger, Invariant, Release, Reaction, Delay, Final\n");
 		ltl = new StringBuilder();
 	}
 	
-	public void addEDTLtuple(EDTLtuple t, int num) {
-		EDTLcsv.append(num+", "+t.getTrigger()+", "+t.getInvariant()+", "+t.getRelease()+", "+t.getReaction()+", "+t.getDelay()+", "+t.getFinale()+"\n");
+	public void addEDTLtuple(EDTLtuple t, int num, String reqName) {
+		EDTLcsv.append(num+", "+reqName+", "+t.getTrigger()+", "+t.getInvariant()+", "+t.getRelease()+", "+t.getReaction()+", "+t.getDelay()+", "+t.getFinale()+"\n");
 	}
 	
-	public void addLtl(String ltl) {
-		this.ltl.append(ltl+"\n");
+	public void addLtl(String ltl, String reqName) {
+		this.ltl.append(reqName+": "+ltl+"\n");
 	}
 	
 	public String getEDTLcsv() {

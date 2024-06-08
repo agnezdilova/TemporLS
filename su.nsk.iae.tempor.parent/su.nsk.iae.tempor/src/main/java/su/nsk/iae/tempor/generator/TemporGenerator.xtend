@@ -56,9 +56,14 @@ class TemporGenerator extends AbstractGenerator implements ITemporGenerator{
 		val model = resource.allContents.toIterable.filter(Model).get(0)
 		
 		beforeGenerate(resource, fsa, context)
+		val String[] path = resource.getURI().path().split("/");
+		val String[] fullFileName = path.get(path.size-1).split("\\.");
+		val String fileName = fullFileName.get(0);
+		System.out.println(fullFileName)
+		//System.out.println(fileName)
 		val Output o = generateRequirements()
-		fsa.generateFile("LtlRequirements.txt",o.getLtl())
-		fsa.generateFile("EDTLRequirements.csv",o.getEDTLcsv())
+		fsa.generateFile(fileName+"LtlRequirements.txt",o.getLtl())
+		fsa.generateFile(fileName+"EDTLRequirements.csv",o.getEDTLcsv())
 		
 	}
 	
@@ -66,9 +71,9 @@ class TemporGenerator extends AbstractGenerator implements ITemporGenerator{
 		var Output o = new Output();
 		for (req : cnlModel.getReqDeclaration()){
 			val edtl = generateRequirement(req.getRequirement());
-			o.addEDTLtuple(edtl,counter);
+			o.addEDTLtuple(edtl,counter,req.getName());
 			counter++;
-			o.addLtl(EDTLUtils.EDTLtupleToLTL(edtl))
+			o.addLtl(EDTLUtils.EDTLtupleToLTL(edtl),req.getName())
 		}
 		return o
 	}

@@ -7,14 +7,27 @@ VAR_OUTPUT
 OUT : INT;
 END_VAR
 
-SENTENCE s_1
-"hands are present" = H AND D
+SENTENCE trigger 
+"dryer is on and hands are present" = D AND FE(H)
 END_SENTENCE
 
-SENTENCE s_2
+SENTENCE inv
 "dryer is on" = D
 END_SENTENCE
 
+SENTENCE rel
+"no hands are present" = H
+END_SENTENCE
+
+SENTENCE rea
+"dryer is on" = NOT D
+END_SENTENCE
+
+SENTENCE fin
+"1 second" = TAU(#T1s)
+END_SENTENCE
+
+
 REQUIREMENT r_1
-After "hands are present", "dryer is on".
+After "dryer is on and hands are present", "dryer is on" should remain valid until either "no hands are present" or reaction is "dryer is on", which must occur immediately after "1 second".
 END_REQUIREMENT

@@ -4,6 +4,7 @@
 package su.nsk.iae.tempor.generator;
 
 import com.google.common.collect.Iterables;
+import java.util.List;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -56,9 +57,15 @@ public class TemporGenerator extends AbstractGenerator implements ITemporGenerat
   public void doGenerate(final Resource resource, final IFileSystemAccess2 fsa, final IGeneratorContext context) {
     final Model model = ((Model[])Conversions.unwrapArray((Iterables.<Model>filter(IteratorExtensions.<EObject>toIterable(resource.getAllContents()), Model.class)), Model.class))[0];
     this.beforeGenerate(resource, fsa, context);
+    final String[] path = resource.getURI().path().split("/");
+    int _size = ((List<String>)Conversions.doWrapArray(path)).size();
+    int _minus = (_size - 1);
+    final String[] fullFileName = (path[_minus]).split("\\.");
+    final String fileName = fullFileName[0];
+    System.out.println(fullFileName);
     final Output o = this.generateRequirements();
-    fsa.generateFile("LtlRequirements.txt", o.getLtl());
-    fsa.generateFile("EDTLRequirements.csv", o.getEDTLcsv());
+    fsa.generateFile((fileName + "LtlRequirements.txt"), o.getLtl());
+    fsa.generateFile((fileName + "EDTLRequirements.csv"), o.getEDTLcsv());
   }
 
   @Override
@@ -68,9 +75,9 @@ public class TemporGenerator extends AbstractGenerator implements ITemporGenerat
     for (final ReqDeclaration req : _reqDeclaration) {
       {
         final EDTLtuple edtl = this.generateRequirement(req.getRequirement());
-        o.addEDTLtuple(edtl, this.counter);
+        o.addEDTLtuple(edtl, this.counter, req.getName());
         this.counter++;
-        o.addLtl(EDTLUtils.EDTLtupleToLTL(edtl));
+        o.addLtl(EDTLUtils.EDTLtupleToLTL(edtl), req.getName());
       }
     }
     return o;
